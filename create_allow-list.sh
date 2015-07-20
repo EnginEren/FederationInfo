@@ -11,7 +11,7 @@ for i in $(cat $BASE/tmp_manlist);do
 done
 
 cat $BASE/tmp_total | cut -d : -f1 | sort -u > $FEDINFO/in/prod.txt 
-cat $FEDINFO/in/prod.txt | cut -d : -f1 | awk -F. '{print "cms.allow host " "*."$(NF-1)"."$NF}' | sort -u > $FEDINFO/list_eu.allow
+cat $FEDINFO/in/prod.txt | cut -d : -f1 | awk -F. '{print "cms.allow host " "*."$(NF-1)"."$NF}' | sort -u > $FEDINFO/out/list_eu.allow
 rm $BASE/tmp_*
 
 
