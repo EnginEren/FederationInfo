@@ -2,7 +2,7 @@ try: import xml.etree.ElementTree as ET
 except ImportError: from elementtree import ElementTree as ET
 try: import json
 except ImportError: import simplejson as json
-import urllib2, httplib, os
+import urllib2, httplib, sys
 
 # global vars: prod, trans : we create these text files, see run.py
 #              cmsTopology : static text from dashboard team,
@@ -58,7 +58,16 @@ def hostname2SiteName(hostname):
     return ret
 
 # to convert site names into CMS site names
-sites = getSites()
+# try exception if we have a problem with URL.
+
+try :
+    sites = getSites()
+except Exception as e :
+    err={}
+    err["error"] = str(e)
+    print json.dumps(err)
+    sys.exit(1)
+
 def siteName2CMSSiteName(name):
     ret = None
     for cmsSite in sites.keys():
