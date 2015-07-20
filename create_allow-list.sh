@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #cd /var/www/html/parser
-BASE=/var/www/html/cmsfed-allow-list
-FEDINFO=/var/www/html/FederationInfo
+BASE=/root
+FEDINFO=/root/FederationInfo
 
 xrdmapc --list all xrdcmsglobal02.cern.ch:1094 | grep Man  | awk '{print $3}' > $BASE/tmp_manlist
 for i in $(cat $BASE/tmp_manlist);do
@@ -10,8 +10,8 @@ for i in $(cat $BASE/tmp_manlist);do
 	cat $BASE/tmp_$i | awk '{if($2=="Man") print $3; else print $2}' | tail -n +2 >> $BASE/tmp_total
 done
 
-cat $BASE/tmp_total | cut -d : -f1 | sort -u > $FEDINFO/input/prod.txt 
-cat $FEDINFO/input/prod.txt | cut -d : -f1 | awk -F. '{print "cms.allow host " "*."$(NF-1)"."$NF}' | sort -u > $BASE/list_eu.txt
+cat $BASE/tmp_total | cut -d : -f1 | sort -u > $FEDINFO/in/prod.txt 
+cat $FEDINFO/in/prod.txt | cut -d : -f1 | awk -F. '{print "cms.allow host " "*."$(NF-1)"."$NF}' | sort -u > $FEDINFO/list_eu.allow
 rm $BASE/tmp_*
 
 #cd $FEDINFO
