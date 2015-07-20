@@ -49,7 +49,7 @@ def parseHN(data):
     return parsedHNs
 
 # read cms topology json file and parse it
-with open('input/cms_topology.json') as f: cmsTopology = f.read()
+with open('in/cms_topology.json') as f: cmsTopology = f.read()
 cmsTopology = json.loads(cmsTopology)
 def hostname2SiteName(hostname):
     ret = None
@@ -68,8 +68,8 @@ def siteName2CMSSiteName(name):
 if __name__ == "__main__":
     # get hostnames
     hostnames = {}
-    with open('input/prod.txt') as f:  hostnames['prod']  = parseHN(f.read())
-    with open('input/trans.txt') as f: hostnames['trans'] = parseHN(f.read())
+    with open('in/prod.txt') as f:  hostnames['prod']  = parseHN(f.read())
+    with open('in/trans.txt') as f: hostnames['trans'] = parseHN(f.read())
 
     # find CMS site name of prod sites
     for federation in ['prod', 'trans']:
@@ -84,5 +84,5 @@ if __name__ == "__main__":
         if not cmsSite in output['prod'] and not cmsSite in output['trans']:
             output["nowhere"].append(cmsSite)
 
-    with open('federations.json', 'w') as f:
+    with open('out/federations.json', 'w') as f:
         f.write(json.dumps(output, indent = 1))
