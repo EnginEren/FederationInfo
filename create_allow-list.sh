@@ -4,15 +4,31 @@
 BASE=/root
 FEDINFO=/root/FederationInfo
 
-xrdmapc --list all xrdcmsglobal02.cern.ch:1094 | grep Man  | awk '{print $3}' > $BASE/tmp_manlist
-for i in $(cat $BASE/tmp_manlist);do
-	xrdmapc --list all $i > $BASE/tmp_$i	
-	cat $BASE/tmp_$i | awk '{if($2=="Man") print $3; else print $2}' | tail -n +2 >> $BASE/tmp_total
+declare -a redirectors=("cms-xrd-global.cern.ch:1094" "cms-xrd-transit.cern.ch:1094")
+
+for j in "${redirectors[@]}";do
+	if [ "$j" == "cms-xrd-global.cern.ch:1094" ]; then
+		xrdmapc --list all "$j" | grep Man  | awk '{print $3}' > $BASE/tmp_manlist
+		for i in $(cat $BASE/tmp_manlist);do
+			xrdmapc --list all $i > $BASE/tmp_$i	
+			cat $BASE/tmp_$i | awk '{if($2=="Man") print $3; else print $2}' | tail -n +2 >> $BASE/tmp_total
+		done
+	
+
+		cat $BASE/tmp_total | cut -d : -f1 | sort -u > $FEDINFO/in/prod.txt 
+		cat $FEDINFO/in/prod.txt | cut -d : -f1 | awk -F. '{print "cms.allow host " "*."$(NF-1)"."$NF}' | sort -u > $FEDINFO/out/list_eu.allow
+
+	else
+		xrdmapc --list all "$j" | tail -n +2 | awk '{if($2=="Man") print $3; else print $2}' > $BASE/tmp_total
+		cat $BASE/tmp_total | cut -d : -f1 | sort -u > $FEDINFO/in/trans.txt
+	fi	
+	  
+
+	rm $BASE/tmp_*
+
 done
 
-cat $BASE/tmp_total | cut -d : -f1 | sort -u > $FEDINFO/in/prod.txt 
-cat $FEDINFO/in/prod.txt | cut -d : -f1 | awk -F. '{print "cms.allow host " "*."$(NF-1)"."$NF}' | sort -u > $FEDINFO/out/list_eu.allow
-rm $BASE/tmp_*
+
 
 
 exit 0;
