@@ -1,5 +1,7 @@
 {
- "trans": [], 
+ "trans": [
+  "T3_US_Cornell"
+ ], 
  "prod": [
   "T2_CH_CSCS", 
   "T2_UA_KIPT", 
@@ -8,6 +10,7 @@
   "T2_UK_London_Brunel", 
   "T2_FR_GRIF_LLR", 
   "T1_IT_CNAF", 
+  "T2_ES_CIEMAT", 
   "T2_UK_London_IC", 
   "T2_HU_Budapest", 
   "T2_DE_RWTH", 
@@ -15,7 +18,6 @@
   "T2_RU_SINP", 
   "T1_UK_RAL", 
   "T2_BE_IIHE", 
-  "T3_TW_NTU_HEP", 
   "T2_ES_IFCA", 
   "T2_IN_TIFR", 
   "T2_RU_ITEP", 
@@ -24,7 +26,6 @@
   "T2_IT_Legnaro", 
   "T2_DE_DESY", 
   "T3_UK_SGrid_Oxford", 
-  "T3_CH_PSI", 
   "T2_TH_CUNSTDA", 
   "T1_ES_PIC", 
   "T2_PT_NCG_Lisbon", 
@@ -36,6 +37,7 @@
   "T2_UK_SGrid_RALPP", 
   "T3_US_Baylor", 
   "T3_UK_London_QMUL", 
+  "T3_TW_NTU_HEP", 
   "T3_US_UIowa", 
   "T3_US_UMD", 
   "T2_CH_CERN_AI", 
@@ -89,18 +91,17 @@
   "T3_KR_KISTI", 
   "T3_IN_VBU", 
   "T3_IT_Firenze", 
-  "T3_US_Cornell", 
   "T3_US_UCSB", 
   "T3_ES_Oviedo", 
   "T3_US_NotreDame", 
   "T3_HU_Debrecen", 
   "T2_US_Caltech", 
   "T3_FR_IPNL", 
+  "T3_BG_UNI_SOFIA", 
   "T3_UK_London_RHUL", 
   "T0_CH_CERN", 
   "T3_CN_PKU", 
   "T2_US_Nebraska", 
-  "T2_ES_CIEMAT", 
   "T3_UK_ScotGrid_GLA", 
   "T2_CH_CERN_T0", 
   "T3_US_TTU", 
@@ -127,6 +128,7 @@
   "T2_MY_UPM_BIRUNI", 
   "T1_FR_CCIN2P3", 
   "T2_FR_GRIF_IRFU", 
+  "T3_TW_NCHC", 
   "T3_US_NERSC", 
   "T3_RU_FIAN", 
   "T2_FR_CCIN2P3", 
@@ -134,6 +136,7 @@
   "T3_AS_Parrot", 
   "T2_US_MIT", 
   "T2_PL_Swierk", 
+  "T3_CH_PSI", 
   "T3_IT_Bologna"
  ]
 }
