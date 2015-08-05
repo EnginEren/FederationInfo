@@ -777,6 +777,12 @@
     "SiteName": "Indiana_University",                                         
     "VOname": "Indiana_University",
     "Country": "USA"
+  },
+  "physics.ucsb.edu": {
+     "host_dict": {},
+     "SiteName": "ucsb-cms",
+     "VOname": "T3_US_UCSB",
+     "Country": "USA"
   },                                                                          
   "physics.ox.ac.uk": {                                                       
     "host_dict": {},                                                          
@@ -1035,7 +1041,7 @@
     "SiteName": "UNIGE-DPNC",
     "VOname": "UNIGE-DPNC",
     "Country": "Switzerland"
-  },
+  }, 
   "unknown": {
     "host_dict": {},
     "SiteName": "n/a",
