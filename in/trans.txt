@@ -1,2 +1,4 @@
 cms25.physics.ucsb.edu
+cms-se.hep.uprm.edu
 osg-se.cac.cornell.edu
+osg-xrootd01.cac.cornell.edu
