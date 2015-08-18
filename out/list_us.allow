@@ -1,0 +1,12 @@
+cms.allow host *.brown.edu
+cms.allow host *.fnal.gov
+cms.allow host *.mit.edu
+cms.allow host *.org.br
+cms.allow host *.purdue.edu
+cms.allow host *.ucsd.edu
+cms.allow host *.uerj.br
+cms.allow host *.ufl.edu
+cms.allow host *.ultralight.org
+cms.allow host *.unl.edu
+cms.allow host *.vanderbilt.edu
+cms.allow host *.wisc.edu
