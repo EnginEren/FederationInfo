@@ -14,3 +14,18 @@ Cronjob is done via "create-fedfiles.sh" script. From that script, we are callin
 	
 	-Output : 
 		Allow list of both US and EU regions are produced. 
+		Host names are produced for both production and transational federation. (prod.txt and trans.txt)
+
+  **create_fedmaps.py** :
+	
+	-Input : 
+		1. Hostnames in in/prod.txt and in/trans.txt
+		2. http://dashb-cms-vo-feed.cern.ch/dashboard/request.py/cmssitemapbdii
+		3. CMS Topology from Site Support Team. (JSON file in/cms_topology.json)
+	-Purpose :	
+		We want to convert hostnames to "cms sitenames", e.g T2_DE_DESY. 
+	-Output :
+		JSON file which consists of 3 categories :
+			1. Production Federation
+			2. Transitional Federation
+			3. Nowhere Sites. (Sites which are not subscribed to any redirector.)
