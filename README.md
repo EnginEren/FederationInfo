@@ -23,7 +23,7 @@ Cronjob is done via "create-fedfiles.sh" script. From that script, we are callin
 		2. http://dashb-cms-vo-feed.cern.ch/dashboard/request.py/cmssitemapbdii
 		3. CMS Topology from Site Support Team. (JSON file in/cms_topology.json)
 	-Purpose :	
-		We want to convert hostnames to "cms sitenames", e.g T2_DE_DESY. 
+		We want to convert hostnames to "cms sitenames", e.g t2-cms-xrootd01.desy.de ---> T2_DE_DESY. 
 	-Output :
 		JSON file which consists of 3 categories :
 			1. Production Federation
