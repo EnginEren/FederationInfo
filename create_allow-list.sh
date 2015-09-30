@@ -3,6 +3,7 @@
 #cd /var/www/html/parser
 BASE=/root
 FEDINFO=/root/FederationInfo
+export XRD_NETWORKSTACK=IPv4
 
 declare -a redirectors=("cms-xrd-global.cern.ch:1094" "cms-xrd-transit.cern.ch:1094")
 
