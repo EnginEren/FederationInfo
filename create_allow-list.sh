@@ -1,6 +1,5 @@
 #!/bin/bash
 
-#cd /var/www/html/parser
 BASE=/root
 FEDINFO=/root/FederationInfo
 export XRD_NETWORKSTACK=IPv4
@@ -9,16 +8,16 @@ declare -a redirectors=("xrdcmsglobal01.cern.ch:1094" "xrdcmsglobal02.cern.ch:10
 
 for j in "${redirectors[@]}";do
 	if [ "$j" == "xrdcmsglobal01.cern.ch:1094" ] || [ "$j" == "xrdcmsglobal02.cern.ch:1094" ]; then
-		xrdmapc --list all "$j" | grep Man  | awk '{print $3}' > $BASE/tmp_manlist_$j
-		for i in $(cat $BASE/tmp_manlist_$j);do
-		 	word=$(echo $i | cut -d ":" -f1 | awk -F"." '{print $NF}')	
-			if [ $word == "edu" ] || [ $word == "gov" ] || [ $word == "br" ] ;then
-				xrdmapc --list all $i > $BASE/tmp_us_$i	
-				cat $BASE/tmp_us_$i | awk '{if($2=="Man") print $3; else print $2}' | tail -n +2 >> $BASE/tmp_total_us_$j
-			else
-				xrdmapc --list all $i > $BASE/tmp_$i	
-				cat $BASE/tmp_$i | awk '{if($2=="Man") print $3; else print $2}' | tail -n +2 >> $BASE/tmp_total_eu_$j
-			fi
+		xrdmapc --list all "$j" | grep -E 'xrootd.ba.infn.it|xrootd-redic.pi.infn.it|llrxrd-redir.in2p3.fr:1094' | awk '{print $3}' | cut -d ':' -f1 > $BASE/tmp_euRED_$j
+		xrdmapc --list all "$j" | grep -E 'cmsxrootd1.fnal.gov|xrootd.unl.edu' | awk '{print $3}' | cut -d ':' -f1 > $BASE/tmp_usRED_$j
+		for i in $(cat $BASE/tmp_euRED_$j);do
+			xrdmapc --list all $i:1094 > $BASE/tmp_$i	
+			cat $BASE/tmp_$i | awk '{if($2=="Man") print $3; else print $2}' | tail -n +2 >> $BASE/tmp_total_eu_$j
+		done
+		
+		for k in $(cat $BASE/tmp_usRED_$j);do
+			xrdmapc --list all $k:1094 > $BASE/tmp_us_$k	
+			cat $BASE/tmp_us_$k | awk '{if($2=="Man") print $3; else print $2}' | tail -n +2 >> $BASE/tmp_total_us_$j
 		done
 	
 
@@ -41,10 +40,18 @@ done
 diff $FEDINFO/in/prod_xrdcmsglobal01.cern.ch\:1094.txt $FEDINFO/in/prod_xrdcmsglobal01.cern.ch\:1094.txt 
 stat=$(echo $?)
 if [ $stat == 1 ]; then
-	cat prod_xrdcmsglobal01.cern.ch:1094.txt prod_xrdcmsglobal02.cern.ch:1094.txt >> $FEDINFO/in/prod.txt	
+	cat prod_xrdcmsglobal01.cern.ch:1094.txt prod_xrdcmsglobal02.cern.ch:1094.txt | sort -u > $FEDINFO/in/prod.txt	
 else
 	cp $FEDINFO/in/prod_xrdcmsglobal01.cern.ch\:1094.txt $FEDINFO/in/prod.txt
 fi	
+
+
+
+#cat $FEDINFO/in/prod.txt | cut -d : -f1 | sort -u | awk -F. '{if ($NF == "uk" || $NF == "fr" || $NF == "it" || $(NF-1) == "cern" ) print $(NF-2)"."$(NF-1)"."$NF; else if ( $(NF-1) == "vanderbilt" ) print $(NF-3)"."$(NF-2)"."$(NF-1)"."$NF; else if ( $(NF-1) == "mit" ) print $(NF-2)"."$(NF-1)"."$NF;  else print $(NF-1)"."$NF}' | sort -u > $FEDINFO/in/prod_domain.txt
+
+cat $FEDINFO/in/prod.txt |  sort -u | awk -F. '{if ($NF == "uk" && $(NF-2) != "rl" || $NF == "fr" || $(NF-1) == "cern" ) print $(NF-2)"."$(NF-1)"."$NF; else if ( $(NF-2) == "cnaf") print $(NF-4)"."$(NF-2); else if ( $NF == "it" && $(NF-2) != "cnaf" ) print $(NF-2)"."$(NF-1)"."$NF; else if ( $(NF-1) == "vanderbilt" ) print $(NF-3)"."$(NF-2)"."$(NF-1)"."$NF; else if ( $(NF-1) == "mit" ) print $(NF-2)"."$(NF-1)"."$NF; else if ( $(NF-2) == "rl" ) print $(NF-3)"."$(NF-2)"."$(NF-1)"."$NF; else if ( $NF == "kr") print $(NF-3)"."$(NF-2)"."$(NF-1)"."$NF; else if ( $NF == "be" ) print $(NF-2)"."$(NF-1)"."$NF; else print $(NF-1)"."$NF}' | sort -u > $FEDINFO/in/prod_domain.txt
+
+cat $FEDINFO/in/trans.txt | cut -d : -f1 | sort -u | awk -F. '{if ($NF == "uk" || $NF == "fr" || $NF == "it" ) print $(NF-2)"."$(NF-1)"."$NF; else print $(NF-1)"."$NF}' | sort -u > $FEDINFO/in/trans_domain.txt
 
 
 exit 0;
