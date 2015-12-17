@@ -98,6 +98,8 @@ if __name__ == "__main__":
     for cmsSite in sites.keys():
         if not cmsSite in output['prod'] and not cmsSite in output['trans']:
             output["nowhere"].append(cmsSite)
+	if cmsSite == "T1_FR_CCIN2P3" and cmsSite in output['prod'] :
+	    output["prod"].append("T2_FR_CCIN2P3")
 
     with open('/root/FederationInfo/out/federations.json', 'w') as f:
         f.write(json.dumps(output, indent = 1))
