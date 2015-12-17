@@ -36,13 +36,12 @@ for j in "${redirectors[@]}";do
 
 done
 
-
-diff $FEDINFO/in/prod_xrdcmsglobal01.cern.ch\:1094.txt $FEDINFO/in/prod_xrdcmsglobal01.cern.ch\:1094.txt 
+diff $FEDINFO/in/prod_xrdcmsglobal01.cern.ch\:1094.txt $FEDINFO/in/prod_xrdcmsglobal02.cern.ch\:1094.txt 
 stat=$(echo $?)
 if [ $stat == 1 ]; then
-	cat prod_xrdcmsglobal01.cern.ch:1094.txt prod_xrdcmsglobal02.cern.ch:1094.txt | sort -u > $FEDINFO/in/prod.txt	
+	cat $FEDINFO/in/prod_xrdcmsglobal01.cern.ch\:1094.txt $FEDINFO/in/prod_xrdcmsglobal02.cern.ch\:1094.txt | sort -u > $FEDINFO/in/prod.txt	
 else
-	cp $FEDINFO/in/prod_xrdcmsglobal01.cern.ch\:1094.txt $FEDINFO/in/prod.txt
+	cp $FEDINFO/in/prod_xrdcmsglobal02.cern.ch\:1094.txt $FEDINFO/in/prod.txt
 fi	
 
 
