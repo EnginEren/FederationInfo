@@ -21,7 +21,6 @@ Cronjob is done via "create-fedfiles.sh" script. From that script, we are callin
 	-Input : 
 		1. Hostnames in in/prod.txt and in/trans.txt
 		2. http://dashb-cms-vo-feed.cern.ch/dashboard/request.py/cmssitemapbdii
-		3. CMS Topology from Site Support Team. (JSON file in/cms_topology.json)
 	-Purpose :	
 		We want to convert hostnames to "cms sitenames", e.g t2-cms-xrootd01.desy.de ---> T2_DE_DESY. 
 	-Output :
